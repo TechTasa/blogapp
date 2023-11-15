@@ -6,12 +6,7 @@ exports.signup = async (req, res) => {
   try {
     const user = await User.create({ username, password });
     req.session.user = user;
-    res.status(201).json({
-      status: 'success',
-      data: {
-        user
-      }
-    });
+    res.redirect('/auth/login')
   } catch (err) {
     res.status(400).json({
       status: 'error',
@@ -38,7 +33,7 @@ exports.login = async (req, res) => {
       });
     }
     req.session.user = user;
-    res.redirect('/')
+    res.redirect('/posts')
   } catch (err) {
     res.status(400).json({
       status: 'error',

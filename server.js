@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const authRoutes = require('./routes/authRoutes');
+const postRoutes=require('./routes/postRoutes')
 const { connect} = require('./config/db');
 const bodyParser = require('body-parser');
 
@@ -35,6 +36,7 @@ const store = new MongoDBStore({
   }));
   
   app.use('/auth', authRoutes);
+  app.use('/posts', postRoutes);
 
   
 

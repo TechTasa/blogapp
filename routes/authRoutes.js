@@ -19,7 +19,7 @@ router.get('/logout', (req, res) => {
         return res.redirect('/dashboard');
       }
       res.clearCookie('sid');
-      res.redirect('/');
+      res.redirect('/posts');
     });
   });
   
