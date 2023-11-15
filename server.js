@@ -41,11 +41,7 @@ const store = new MongoDBStore({
   
 
   app.get('/', (req, res) => {
-    if (req.session.user) {
-      res.send(req.session.user);
-    } else {
-      res.status(401).send('Not logged in');
-    }
+   res.redirect("/posts")
   });
   
 
