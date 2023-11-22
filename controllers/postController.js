@@ -1,23 +1,26 @@
 const Post = require('../models/Post');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 exports.createPost = async (req, res) => {
-    try {
-      const { title, discription, content, images, videos } = req.body;
-      const post = await Post.create({
-        title,
-        discription,
-        content,
-        images: images ? images.split(',') : [],
-        videos: videos ? videos.split(',') : [],
-        author: req.session.user._id
-      });
-      res.redirect('/posts')
-    } catch (err) {
-      res.status(400).json({
-        status: 'error',
-        message: err.message
-      });
-    }
-  };
+  try {
+    const { title, discription, content, videos } = req.body;
+    const images = req.files; // multer adds a 'files' object to the request
+    const post = await Post.create({
+      title,
+      discription,
+      content,
+      images: images.map(file => `${file.path}`), // save the path of the uploaded files
+      videos: videos ? videos.split(',') : [],
+      author: req.session.user._id
+    });
+    res.redirect('/posts')
+  } catch (err) {
+    res.status(400).json({
+      status: 'error',
+      message: err.message
+    });
+  }
+};
   
   exports.getAllPosts = async (req, res) => {
     try {

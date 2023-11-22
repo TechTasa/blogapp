@@ -245,7 +245,7 @@
     <%= post.title %>
   </h1>
   <% post.images.forEach(image=> { %>
-    <img src="<%= image %>" alt="Post image">
+    <img src="../<%= image %>" alt="Post image">
     <% }) %>
       <% post.videos.forEach(video=> { %>
         <video width="320" height="240" controls>

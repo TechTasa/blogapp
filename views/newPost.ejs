@@ -52,18 +52,40 @@
   </style>
 <body>
   <h1>Create a New Post</h1>
-  <form action="/posts/new" method="POST">
+  <form action="/posts/new" method="POST" enctype="multipart/form-data">
     <label for="title">Title:</label><br>
     <input type="text" id="title" name="title"><br>
+    <div id="preview" style="display: flex; justify-content: center;align-items: center;">
+      <img width="400px" id="imagePreview" src="" alt="">
+    </div>
+    <label for="images" style="display: flex;justify-content: center;align-items: center;"><img src="https://png.pngtree.com/png-vector/20191129/ourmid/pngtree-image-upload-icon-photo-upload-icon-png-image_2047545.jpg" alt="uploadImageIcon"></label><br>
+    <input style="display: none;" type="file" id="images" name="images" multiple><br> <!-- allow multiple files -->
     <label for="discription">Discription:</label><br>
     <input type="text" id="discription" name="discription"><br>
     <label for="content">Content:</label><br>
     <textarea id="content" name="content"></textarea><br>
-    <label for="images">Images (URLs, separated by commas):</label><br>
-    <input type="text" id="images" name="images"><br>
     <label for="videos">Videos (URLs, separated by commas):</label><br>
     <input type="text" id="videos" name="videos"><br>
     <input type="submit" value="Submit">
-  </form>
+  </form>  
 </body>
+<script>
+ let imagePreview = document.getElementById("imagePreview");
+  let imageInput = document.getElementById("images");
+
+  imageInput.addEventListener("change", (e) => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+
+    reader.onloadend = function () {
+      imagePreview.src = reader.result;
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      imagePreview.src = "";
+    }
+  });
+</script>
 </html>

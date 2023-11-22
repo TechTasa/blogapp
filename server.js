@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const postRoutes=require('./routes/postRoutes')
 const { connect} = require('./config/db');
 const bodyParser = require('body-parser');
+const path = require("path");
 
 require('dotenv').config();
 
@@ -13,7 +14,9 @@ const app = express();
 
 
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(express.static('uploads'));
 // Connect Database
 connect();
 
